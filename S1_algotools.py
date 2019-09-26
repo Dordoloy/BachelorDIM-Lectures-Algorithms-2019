@@ -22,13 +22,16 @@ follows prototype "function average_above_zero(table:list) returns float".
 import numpy as np
 
 
-def average_above_zero(table:list):
+def average_above_zero(table):
     ##
-    #Function that return the table average above zero
+    #Function that compute the average of positive values
     #Args:
     #    @param: the table
-    #Returns the average
-    
+    #Returns: the average
+    #Raises ValueError if input param is not a list
+    if not(isinstance(table,list)):
+        raise ValueError('average_above_zero, expected a list as input')
+        
     som = 0
     n = 0
     for i in range(len(table)):
@@ -36,15 +39,21 @@ def average_above_zero(table:list):
             #print('tab[{index}={val}]'.format(index = i, val=table[i]))
             som  = som + table[i]
             n =  n + 1
+    if n==0:
+        raise ValueError('Can\'t divide by zero')
     moy =  som/n
     return moy
 
-def max_value(table:list):
+def max_value(table):
     ##
     #Function that return the max value of te table and his index
     #Args:
     #   @param table: the table
-    #Returns max and index
+    #Returns: max and index
+    #Raises ValueError if input param is not a list
+    if not(isinstance(table,list)):
+        raise ValueError('max_value, expected a list as input')
+        
     max = 0
     index = 0
     for i in range(len(table)):
@@ -53,6 +62,25 @@ def max_value(table:list):
             index = i
     return max, index
 
+def reverse_table(table):
+    ##
+    #Function that reverse the table
+    #Args:
+    #   @params table: the table
+    #Returns: the reverse table
+    #Raises ValueError if input param is not a list
+    if not(isinstance(table,list)):
+        raise ValueError('reverse_table, expected a list as input')
+        
+    len_table = len(table)
+    for i in range(len_table):
+        lastValue = table[len_table-1]
+        table.pop()#Delete the last value of the table
+        table.insert(i, lastValue)
+    return table
+        
+    
+
 #test section
 tab_list=[1,2,3,-4,6,-9]
 #tab_zeros = np.zeros(12)
@@ -60,6 +88,7 @@ tab_from_list = np.array(tab_list)
 print('Average above 0 = {0}'.format(average_above_zero(tab_list)))
 print('Max value = {0}'.format(max_value(tab_list)[0]))
 print('Index of max value = {0}'.format(max_value(tab_list)[1]))
+print('reverse table = {0}'.format(reverse_table(tab_list)))
 
 
 
