@@ -20,6 +20,7 @@ follows prototype "function average_above_zero(table:list) returns float".
 
 
 import numpy as np
+import cv2
 
 
 def average_above_zero(table):
@@ -85,31 +86,63 @@ def reverse_table(table):
         raise ValueError('reverse_table, expected a list of numbers')
         
     len_table = len(table)
-    for i in range(len_table):
+    turns = int(len(table)/2)
+    for i in range(turns):
+        """
         lastValue = table[len_table-1]
         table.pop()#Delete the last value of the table
         table.insert(i, lastValue)
+        """
+        app_id = len_table-i-1
+        tmp=table[i]
+        table[i]=table[app_id]
+        table[app_id]=tmp
+
     return table
 
 #in progress     
 def roi_bbox(input_image):
-    box = np.array([])
-    for i in range(len(input_image)):
-        for j in range(len(input_image)):
-            lim = input_image[i][j]
-            print(lim)
-    return lim
-    
+    ##
+    #Function that return the bounding box of an image
+    #Args:
+    #    @param input_image: the numpy array 
+    #Returns the bbox of numpy array
+    #Raises Value error if input param is not a numpy aray and if the array is empty
+    if not(isinstance(input_image,np.ndarray)):
+        raise ValueError('roi_bbox, expected a numpy array as input')
+    if len(input_image) == 0:
+        raise ValueError('roi_bbox, expected a non empty array as input')
+    min_raw = input_image.shape[1]
+    min_col = input_image.shape[0]
+    max_raw = 0
+    max_col = 0
+    for idraw in range(input_image.shape[0]):
+        for idcol in range(input_image.shape[1]):
+            pix_val=input_image[idraw, idcol]
+            if pix_val == 255:
+                if idcol > max_col:
+                    max_col = idcol
+                if idraw > max_raw:
+                    max_raw = idraw
+                if idcol < min_col:
+                    min_col = idcol
+                if idraw < min_raw:
+                    min_raw = idraw
+    return np.array([[min_raw,min_col],[min_raw,max_col],[max_raw,min_col],[max_raw,max_col]])
 
 #test section
-tab_list=[1,2,3,-4,6,-9]
-img=[]
-#tab_zeros = np.zeros(12)
-tab_from_list = np.array(tab_list)
+tab_list=[1,2,3,-4,6,-9]  
+matrix = np.zeros((10,10),dtype=np.int32) 
+matrix[3:6, 4:8]=np.ones((3,4),dtype=np.int32)
+img = cv2.imread("img.png",0)
+#↓cv2.imshow('read image', img)
+#cv2.waitKey()
+tab_zeros = np.zeros(12)
+#tab_from_list = np.array(tab_list)
 print('Average above 0 = {0}'.format(average_above_zero(tab_list)))
 print('Max value = {0}'.format(max_value(tab_list)[0]))
 print('Index of max value = {0}'.format(max_value(tab_list)[1]))
 print('reverse table = {0}'.format(reverse_table(tab_list)))
-
+print('Bounding box = \n {0}'.format(roi_bbox(img)))
 
 
