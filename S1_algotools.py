@@ -31,6 +31,10 @@ def average_above_zero(table):
     #Raises ValueError if input param is not a list
     if not(isinstance(table,list)):
         raise ValueError('average_above_zero, expected a list as input')
+    if len(table)==0:
+        raise ValueError('expected a non empty list as input')
+    if not(isinstance(table[0],(int, float))):
+        raise ValueError('average_above_zero, expected a list of numbers')
         
     som = 0
     n = 0
@@ -53,6 +57,10 @@ def max_value(table):
     #Raises ValueError if input param is not a list
     if not(isinstance(table,list)):
         raise ValueError('max_value, expected a list as input')
+    if len(table)==0:
+        raise ValueError('expected a non empty list as input')
+    if not(isinstance(table[0],(int, float))):
+        raise ValueError('max_value, expected a list of numbers')
         
     max = 0
     index = 0
@@ -71,6 +79,10 @@ def reverse_table(table):
     #Raises ValueError if input param is not a list
     if not(isinstance(table,list)):
         raise ValueError('reverse_table, expected a list as input')
+    if len(table)==0:
+        raise ValueError('expected a non empty list as input')
+    if not(isinstance(table[0],(int, float))):
+        raise ValueError('reverse_table, expected a list of numbers')
         
     len_table = len(table)
     for i in range(len_table):
@@ -78,11 +90,20 @@ def reverse_table(table):
         table.pop()#Delete the last value of the table
         table.insert(i, lastValue)
     return table
-        
+
+#in progress     
+def roi_bbox(input_image):
+    box = np.array([])
+    for i in range(len(input_image)):
+        for j in range(len(input_image)):
+            lim = input_image[i][j]
+            print(lim)
+    return lim
     
 
 #test section
 tab_list=[1,2,3,-4,6,-9]
+img=[]
 #tab_zeros = np.zeros(12)
 tab_from_list = np.array(tab_list)
 print('Average above 0 = {0}'.format(average_above_zero(tab_list)))
