@@ -147,6 +147,8 @@ def random_fill_sparse(table, k):
             rand2 = random.randint(0,table.shape[1]-1)
             if table[rand1,rand2] != 'X':
                 table[rand1,rand2] = 'X'
+            else:
+                i -= 1
     return table
     
 
