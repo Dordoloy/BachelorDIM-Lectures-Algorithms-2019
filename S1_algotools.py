@@ -45,7 +45,7 @@ def average_above_zero(table):
             som  = som + table[i]
             n =  n + 1
     if n==0:
-        raise ValueError('Can\'t divide by zero')
+        raise ZeroDivisionError('Can\'t divide by zero')
     moy =  som/n
     return moy
 
@@ -140,9 +140,9 @@ def random_fill_sparse(table, k):
     #Raises Value error if input param is not a numpy aray and if the array is empty
     
     if not(isinstance(table,np.ndarray)):
-        raise ValueError('roi_bbox, expected a numpy array as input')
+        raise ValueError('random_fill_sparse, expected a numpy array as input')
     if len(table) == 0:
-        raise ValueError('roi_bbox, expected a non empty array as input')
+        raise ValueError('random_fill_sparse, expected a non empty array as input')
         
     for i in range(k):
             rand1 = random.randint(0,table.shape[0]-1)
