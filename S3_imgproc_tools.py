@@ -18,7 +18,7 @@ def invert_colors_manual(input_img):
                 input_img[i,j,k] = 255 - input_img[i,j,k]
     return input_img
 """
-img=cv2.imread('img/avatar.png',1)
+img=cv2.imread('img/yop.png',1)
 print("BGR image shape = "+str(img.shape))
 #display the loaded images cv2.imshow("Gray levels image", img_gray)
 
