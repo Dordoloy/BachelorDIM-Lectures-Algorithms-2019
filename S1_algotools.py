@@ -159,7 +159,6 @@ matrix[3:6, 4:8]=np.ones((3,4),dtype=np.int32)
 img = cv2.imread("img.png",0)
 a = np.ones((10,10),dtype=np.chararray)
 a *= '-'  
-print(a)
 #↓cv2.imshow('read image', img)
 #cv2.waitKey()
 #tab_zeros = np.zeros(12)
