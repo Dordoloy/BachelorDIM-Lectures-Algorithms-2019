@@ -51,15 +51,15 @@ def test_max_value():
 
 def test_max_value_not_a_list():
     with pytest.raises(ValueError):
-        s1.average_above_zero(3)
+        s1.max_value(3)
         
 def test_max_value_empty_list():
     with pytest.raises(ValueError):
-        s1.average_above_zero([])
+        s1.max_value([])
     
 def test_max_value_a_number_list():
     with pytest.raises(ValueError):
-        s1.average_above_zero(['3',''])
+        s1.max_value(['3',''])
 
 
 
