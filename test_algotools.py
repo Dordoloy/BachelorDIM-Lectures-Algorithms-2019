@@ -86,7 +86,7 @@ def test_reverse_table_empty_list():
 """
 def test_roi_bbox():
     img = cv2.imread("img.png",0)
-    assert (s1.roi_bbox(img) == np.array([[124,236],[124,732],[424,236],[424,732]])).prod()
+    assert(s1.roi_bbox(img) == np.array([[124,236],[124,732],[424,236],[424,732]])).prod()
 
 def test_roi_bbox_not_an_array():
     with pytest.raises(TypeError):
@@ -95,5 +95,22 @@ def test_roi_bbox_not_an_array():
 def test_roi_bbox_empty_array():
     with pytest.raises(ValueError):
         s1.roi_bbox(np.array([]))
+
+"""
+    UnitTest random_fill_sparse
+"""
+def test_random_fill_sparse():
+    a = np.ones((10,10),dtype=np.chararray)
+    a *= '-' 
+    result = s1.random_fill_sparse(a,10)
+    assert len(np.argwhere(result == 'X')) == 10
+
+def test_random_fill_sparse_not_an_array():
+    with pytest.raises(TypeError):
+        s1.random_fill_sparse(3,10)
+        
+def test_random_fill_sparse_empty_array():
+    with pytest.raises(ValueError):
+        s1.random_fill_sparse(np.array([]),10)
 
 
