@@ -63,4 +63,27 @@ def test_max_value_a_number_list():
 
 
 
+"""
+    UnitTest reverse_table
+"""
+
+def test_reverse_table():
+    tab_list=[1,2,3,-4,6,-9]  
+    assert s1.reverse_table(tab_list) == [-9,6,-4,3,2,1]
+
+def test_reverse_table_not_a_list():
+    with pytest.raises(ValueError):
+        s1.reverse_table(3)
+        
+def test_reverse_table_empty_list():
+    with pytest.raises(ValueError):
+        s1.reverse_table([])
+    
+def test_reverse_table_a_number_list():
+    with pytest.raises(ValueError):
+        s1.reverse_table(['3',''])
+
+
+
+
 
