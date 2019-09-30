@@ -141,14 +141,14 @@ def random_fill_sparse(table, k):
         raise TypeError('random_fill_sparse, expected a numpy array as input')
     if len(table) == 0:
         raise ValueError('random_fill_sparse, expected a non empty array as input')
-        
-    for i in range(k):
+    
+    i=0
+    while i < k:
             rand1 = random.randint(0,table.shape[0]-1)
             rand2 = random.randint(0,table.shape[1]-1)
             if table[rand1,rand2] != 'X':
                 table[rand1,rand2] = 'X'
-            else:
-                i -= 1
+                i+=1
     return table
     
 
