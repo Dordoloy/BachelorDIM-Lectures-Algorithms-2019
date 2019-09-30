@@ -21,7 +21,7 @@ follows prototype "function average_above_zero(table:list) returns float".
 
 import numpy as np
 import cv2
-
+import random
 
 def average_above_zero(table):
     ##
@@ -130,19 +130,45 @@ def roi_bbox(input_image):
                     min_raw = idraw
     return np.array([[min_raw,min_col],[min_raw,max_col],[max_raw,min_col],[max_raw,max_col]])
 
+def random_fill_sparse(table, k):
+     ##
+    #Function that return the bounding box of an image
+    #Args:
+    #    @param table: the numpy array
+    #    @param k: the number of 'X'
+    #Returns the table filled by the 'X'
+    #Raises Value error if input param is not a numpy aray and if the array is empty
+    
+    if not(isinstance(table,np.ndarray)):
+        raise ValueError('roi_bbox, expected a numpy array as input')
+    if len(table) == 0:
+        raise ValueError('roi_bbox, expected a non empty array as input')
+        
+    for i in range(k):
+            rand1 = random.randint(0,table.shape[0]-1)
+            rand2 = random.randint(0,table.shape[1]-1)
+            if table[rand1,rand2] != 'X':
+                table[rand1,rand2] = 'X'
+    return table
+    
+
 #test section
 tab_list=[1,2,3,-4,6,-9]  
 matrix = np.zeros((10,10),dtype=np.int32) 
 matrix[3:6, 4:8]=np.ones((3,4),dtype=np.int32)
 img = cv2.imread("img.png",0)
+a = np.ones((10,10),dtype=np.chararray)
+a *= '-'  
+print(a)
 #↓cv2.imshow('read image', img)
 #cv2.waitKey()
-tab_zeros = np.zeros(12)
+#tab_zeros = np.zeros(12)
 #tab_from_list = np.array(tab_list)
 print('Average above 0 = {0}'.format(average_above_zero(tab_list)))
 print('Max value = {0}'.format(max_value(tab_list)[0]))
 print('Index of max value = {0}'.format(max_value(tab_list)[1]))
 print('reverse table = {0}'.format(reverse_table(tab_list)))
 print('Bounding box = \n {0}'.format(roi_bbox(img)))
+print('Random fill sparse = \n {0}'.format(random_fill_sparse(a,10)))
 
 
