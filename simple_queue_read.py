@@ -8,6 +8,7 @@ Created on Tue Oct  1 08:38:30 2019
 import os
 import pika
 import config
+import time
 
 
 count = 0
@@ -23,12 +24,28 @@ def callback(ch, method, properties, body):
     #Returns nothing
     global count
     count += 1
-    print("Message n°:{0} = [x] Received %r".format(count) % body)
+    print("[{0}] Received %r".format(count) % body)
     #print('[x] message Processed, acknowledging (to delete the message from queue)')
     ch.basic_ack(method.delivery_tag)
 
-
-def simple_queue_read(concurrecy):
+def sleep_callback(ch, method, properties, body):
+    ##
+    #Function that print the received message and count the number of message received
+    #Args:
+    #   @param ch
+    #   @param method
+    #   @param properties
+    #   @param body
+    #Returns nothing
+    global count
+    count += 1
+    time.sleep(0.5)
+    print("[{0}] Received %r".format(count) % body)
+    #print('[x] message Processed, acknowledging (to delete the message from queue)')
+    ch.basic_ack(method.delivery_tag)
+    
+    
+def simple_queue_read(concurrecy, sleep = False):
     ##
     #Function that publish a message
     #Args:
@@ -45,7 +62,13 @@ def simple_queue_read(concurrecy):
     
     channel = connection.channel()
     channel.queue_declare(queue='presentation')
-    channel.basic_consume(queue='presentation',
+    
+    if sleep:
+        channel.basic_consume(queue='presentation',
+                              on_message_callback=sleep_callback,                          
+                              auto_ack=False)
+    else:
+        channel.basic_consume(queue='presentation',
                               on_message_callback=callback,                          
                               auto_ack=False)
         

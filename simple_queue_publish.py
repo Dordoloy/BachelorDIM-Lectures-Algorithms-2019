@@ -23,11 +23,12 @@ def callback(ch, method, properties, body):
     print(" [x] Received %r" % body)
 
 
-def simple_queue_publish(concurrency):
+def simple_queue_publish(concurrency, number = 1):
     ##
     #Function that sent a message
     #Args:
-    #   @params concurrency
+    #   @param concurrency
+    #   @param number
     #Returns nothing
 
     amqp_url=config.amqp_url
@@ -47,12 +48,13 @@ def simple_queue_publish(concurrency):
     
     channel = connection.channel()
     channel.queue_declare(queue='presentation')
-    channel.basic_publish(exchange='',
-                          routing_key='presentation',
-                          body=getpass.getuser(),
-                          properties = properties)
-                          
-    print(" [x] Sent '{0}'".format(getpass.getuser()))
+    
+    for i in range(1, number+1):
+        channel.basic_publish(exchange='',
+                              routing_key='presentation',
+                              body=getpass.getuser(),
+                              properties = properties)                 
+        print(" [{0}] Sent '{1}'".format(i,getpass.getuser()))
     
     connection.close()
 
