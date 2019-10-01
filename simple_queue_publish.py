@@ -23,9 +23,11 @@ def callback(ch, method, properties, body):
     print(" [x] Received %r" % body)
 
 
-def simple_queue_publish():
+def simple_queue_publish(concurrency):
     ##
     #Function that sent a message
+    #Args:
+    #   @params concurrency
     #Returns nothing
 
     amqp_url=config.amqp_url
@@ -38,13 +40,17 @@ def simple_queue_publish():
     
     connection = pika.BlockingConnection(params) # Connect to CloudAMQP
     
+    properties = pika.BasicProperties()
+    if concurrency:
+        properties.delivery_mode = 2
+        print('persitent mode')
+    
     channel = connection.channel()
-    
     channel.queue_declare(queue='presentation')
-    
     channel.basic_publish(exchange='',
                           routing_key='presentation',
-                          body=getpass.getuser())
+                          body=getpass.getuser(),
+                          properties = properties)
                           
     print(" [x] Sent '{0}'".format(getpass.getuser()))
     

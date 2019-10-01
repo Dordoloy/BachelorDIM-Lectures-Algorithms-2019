@@ -24,11 +24,15 @@ def callback(ch, method, properties, body):
     global count
     count += 1
     print("Message n°:{0} = [x] Received %r".format(count) % body)
+    #print('[x] message Processed, acknowledging (to delete the message from queue)')
+    ch.basic_ack(method.delivery_tag)
 
 
-def simple_queue_read():
+def simple_queue_read(concurrecy):
     ##
     #Function that publish a message
+    #Args:
+    #   @param concurrency
     #Returns nothing
     amqp_url=config.amqp_url
     
@@ -40,12 +44,10 @@ def simple_queue_read():
     connection = pika.BlockingConnection(params) # Connect to CloudAMQP
     
     channel = connection.channel()
-    
     channel.queue_declare(queue='presentation')
-    
     channel.basic_consume(queue='presentation',
                               on_message_callback=callback,                          
-                              auto_ack=True)
+                              auto_ack=False)
         
     print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
