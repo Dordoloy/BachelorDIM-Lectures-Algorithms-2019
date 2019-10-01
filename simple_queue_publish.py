@@ -12,11 +12,22 @@ import getpass
 
 
 def callback(ch, method, properties, body):
+    ##
+    #Function that print the publish message
+    #Args:
+    #   @param ch
+    #   @param method
+    #   @param properties
+    #   @param body
+    #Returns nothing
     print(" [x] Received %r" % body)
 
 
 def simple_queue_publish():
-    
+    ##
+    #Function that sent a message
+    #Returns nothing
+
     amqp_url=config.amqp_url
     
     
@@ -39,4 +50,3 @@ def simple_queue_publish():
     
     connection.close()
 
-simple_queue_publish()

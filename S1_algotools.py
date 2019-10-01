@@ -129,7 +129,7 @@ def roi_bbox(input_image):
     return np.array([[min_raw,min_col],[min_raw,max_col],[max_raw,min_col],[max_raw,max_col]])
 
 def random_fill_sparse(table, k):
-     ##
+    ##
     #Function that return the bounding box of an image
     #Args:
     #    @param table: the numpy array

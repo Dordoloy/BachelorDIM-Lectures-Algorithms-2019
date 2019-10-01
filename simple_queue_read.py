@@ -10,15 +10,27 @@ import pika
 import config
 
 
-
+count = 0
 
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
+    ##
+    #Function that print the received message and count the number of message received
+    #Args:
+    #   @param ch
+    #   @param method
+    #   @param properties
+    #   @param body
+    #Returns nothing
+    global count
+    count += 1
+    print("Message n°:{0} = [x] Received %r".format(count) % body)
 
 
 def simple_queue_read():
+    ##
+    #Function that publish a message
+    #Returns nothing
     amqp_url=config.amqp_url
-    
     
     # Parse CLODUAMQP_URL (fallback to localhost)
     url = os.environ.get('CLOUDAMQP_URL',amqp_url)
@@ -38,4 +50,3 @@ def simple_queue_read():
     print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
 
-simple_queue_read()
