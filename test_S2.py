@@ -121,4 +121,4 @@ def test_remove_whitespace():
 
 def test_remove_whitespace_empty_string():
     with pytest.raises(ValueError):
-        s1.average_above_zero('')
+        s1.remove_whitespace('')
