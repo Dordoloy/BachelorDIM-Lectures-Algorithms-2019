@@ -113,4 +113,12 @@ def test_random_fill_sparse_empty_array():
     with pytest.raises(ValueError):
         s1.random_fill_sparse(np.array([]),10)
 
+"""
+    UnitTest remove_whitespace
+"""
+def test_remove_whitespace():
+    assert s1.remove_whitespace('hello world') == 'helloworld'
 
+def test_remove_whitespace_empty_string():
+    with pytest.raises(ValueError):
+        s1.average_above_zero('')

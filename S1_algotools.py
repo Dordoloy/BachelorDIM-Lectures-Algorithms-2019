@@ -150,16 +150,39 @@ def random_fill_sparse(table, k):
                 table[rand1,rand2] = 'X'
                 i+=1
     return table
+
+def remove_whitespace(table):
+    ##
+    # Function that return a string without whitespace
+    # Args:
+    #    @param table: the string
+    # Returns the table without whitespace
+    # Raises Value error if the array is empty
+
+    if len(table) == 0:
+        raise ValueError('random_fill_sparse, expected a non empty string as input')
+
+    str = list(table)
+    for i in range(len(str)):
+        if str[i] == ' ':
+            str[i] = ''
+    table = ''.join(str)
+    return table
+    # return table.replace(' ', '')
+
+
+
+
     
 
 #test section
-tab_list=[1,2,3,-4,6,-9]  
-matrix = np.zeros((10,10),dtype=np.int32) 
+tab_list=[1,2,3,-4,6,-9]
+matrix = np.zeros((10,10),dtype=np.int32)
 matrix[3:6, 4:8]=np.ones((3,4),dtype=np.int32)
 img = cv2.imread("img.png",0)
 a = np.ones((10,10),dtype=np.chararray)
-a *= '-'  
-#↓cv2.imshow('read image', img)
+a *= '-'
+#cv2.imshow('read image', img)
 #cv2.waitKey()
 #tab_zeros = np.zeros(12)
 #tab_from_list = np.array(tab_list)
@@ -169,5 +192,6 @@ print('Index of max value = {0}'.format(max_value(tab_list)[1]))
 print('reverse table = {0}'.format(reverse_table(tab_list)))
 print('Bounding box = \n {0}'.format(roi_bbox(img)))
 print('Random fill sparse = \n {0}'.format(random_fill_sparse(a,10)))
+print('Remove white space = \n {0}'.format(remove_whitespace('hello world')))
 
 
