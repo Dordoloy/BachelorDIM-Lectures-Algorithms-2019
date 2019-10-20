@@ -170,11 +170,6 @@ def remove_whitespace(table):
     return table
     # return table.replace(' ', '')
 
-
-
-
-    
-
 #test section
 tab_list=[1,2,3,-4,6,-9]
 matrix = np.zeros((10,10),dtype=np.int32)
