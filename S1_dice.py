@@ -17,7 +17,7 @@ def shuffle():
         while(interact == 'y' and launch != 1):
             diff2=0
             keep = 1
-            launch = random.randrange(1,6)
+            launch = random.randrange(1,7)
             diff += launch
             interact = input("Voulez vous continuer ? (y or n)")
             if(interact == 'q'):
@@ -41,7 +41,7 @@ def shuffle():
 
         while(launch2 != 1 and keep != 0):
             diff = 0
-            launch2 = random.randrange(1,6)
+            launch2 = random.randrange(1,7)
             diff2 += launch2
             keep = random.randrange(0,3)
             if(launch2 == 1):
