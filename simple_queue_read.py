@@ -50,6 +50,7 @@ def simple_queue_read(concurrecy, sleep = False):
     #Function that publish a message
     #Args:
     #   @param concurrency
+    #   @param sleep
     #Returns nothing
     amqp_url=config.amqp_url
     

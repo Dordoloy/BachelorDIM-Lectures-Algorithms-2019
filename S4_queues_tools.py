@@ -11,6 +11,10 @@ import os
 import pika
 import config
 
+"""
+    For this session you must create a config.py with:
+        amqp_url='amqp://your_url'
+"""
 
 mode='SEND' #set 'SEND' mode is you will to send rather than receive messages
 

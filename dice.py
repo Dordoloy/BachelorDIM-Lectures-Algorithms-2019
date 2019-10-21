@@ -15,7 +15,6 @@ def shuffle():
     keep = 1
     while(party):
         while(interact == 1 and lauch != 1):
-            diff2 = 0
             keep = 1
             lauch = random.randrange(1,6)
             diff += lauch
@@ -32,7 +31,6 @@ def shuffle():
                 party = False
                 print('J1 winner')
         while(lauch2 != 1 and keep == 1):
-            diff = 0
             lauch2 = random.randrange(1,6)
             diff2 += lauch2
             keep = random.randrange(0,1)
